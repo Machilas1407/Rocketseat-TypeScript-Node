@@ -34,7 +34,7 @@ class CreateAppointmentService {
             date: appointmentDate,
         });
 
-        return appointment
+        return appointment;
     }
 }
 

@@ -5,7 +5,6 @@ import { parseISO } from 'date-fns';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import CreateAppointmentService from '../services/CreateAppointmentService';
 
-
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
 
@@ -26,8 +25,10 @@ appointmentsRouter.post('/', (request, response) => {
         const appointment = createAppointment.execute({ date: parsedDate, provider })
 
         return response.json(appointment);
-    } catch (err) {
-        return response.status(400).json({ error: err.message });
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            return response.status(400).json({ error: err.message });
+        }
     }
 })
 
